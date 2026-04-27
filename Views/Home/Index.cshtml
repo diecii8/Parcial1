@@ -1,0 +1,81 @@
+﻿@using WebApparcial1.Models;
+@model IEnumerable<WebApparcial1.Models.Productos>
+
+@{
+    ViewData["Title"] = "EmaCompany";
+    int cuenta = 0;
+    
+}
+
+@foreach (var item in Model)
+{
+    if (item.Favorito)
+    {
+        cuenta++;
+    }
+}
+<div class="text-center">
+    <h1 class="display-4">Bienvenido!</h1>
+    <h4>Productos Favoritos:</h4>
+</div>
+@if (cuenta != 0)
+{
+    
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Nombre)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Categoria)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Precio)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Marca)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Favorito)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                   @foreach (var item in Model)
+                   {
+                    if (item.Favorito)
+                    {
+                    <tr>
+                        <td>
+                                @Html.DisplayFor(modelItem => item.Nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Categoria)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Precio)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Marca)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Favorito)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                   }
+                </tbody>
+    </table>
+}
+else
+{
+    <h6 class="text-center">Aún no se seleccionaron productos como favoritos</h6>
+}
+       
